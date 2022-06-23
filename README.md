@@ -18,7 +18,8 @@ For more a more in-depth look at a self-hosted AWS setup, visit this link
 
 ## Next Steps
 1. Navigate to the CRDB Console
-After initializing the cluster, you are able to access the Console on each node. An example is shown in the terraform output
+After initializing the cluster, you are able to access the Console on each node at port 8080. An example is shown in the terraform output
+`crdb_console = "http://12.345.678.987"`
 
 2. Connect to the SQL Client
 `cockroach sql --insecure --host=<address of any node>`
