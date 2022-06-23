@@ -1,10 +1,10 @@
 # Create 3 instances, one for each cockroach node
 resource "aws_instance" "node" {
   count = 3
-  ami = "ami-0022f774911c1d690"
-  instance_type = "m5.xlarge" 
-  availability_zone = "us-east-1a"
-  key_name = "cockroach-morgan"
+  ami = var.ami
+  instance_type = var.instance_type 
+  availability_zone = var.zones[count.index]
+  key_name = var.key_name
 
   tags = {
       Name = "cockroach_node_${count.index}" 
@@ -16,8 +16,8 @@ resource "null_resource" "node-init" {
     count       = 3
   connection {
     type        = "ssh"
-    user        = "ec2-user"
-    private_key = file("~/.ssh/cockroach-morgan.pem")
+    user        = var.user
+    private_key = file(var.private_key)
     host        = aws_instance.node[count.index].public_ip
   }
 
